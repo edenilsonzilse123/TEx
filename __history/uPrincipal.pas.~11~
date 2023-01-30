@@ -1,0 +1,54 @@
+unit uPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, System.ImageList, Vcl.ImgList,
+  Vcl.ExtCtrls, System.Actions, Vcl.ActnList, Vcl.StdCtrls, Vcl.Buttons,
+  Vcl.Menus;
+
+type
+  TfrmPrincipal = class(TForm)
+    pnlBotoes: TPanel;
+    ilPrin: TImageList;
+    actlstPrin: TActionList;
+    actCadPersons: TAction;
+    btnCadPersons: TBitBtn;
+    pmPrin: TPopupMenu;
+    Cadastrarpessoas1: TMenuItem;
+    procedure FormActivate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure actCadPersonsExecute(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+implementation
+
+uses
+  uLogin, uFormularios, uCadastrarPessoas;
+
+{$R *.dfm}
+
+procedure TfrmPrincipal.actCadPersonsExecute(Sender: TObject);
+begin
+  CriarForm(TfrmCadastrarPessoas, frmCadastrarPessoas,'Cadastrar pessoas');
+end;
+
+procedure TfrmPrincipal.FormActivate(Sender: TObject);
+begin
+  Caption :=  Application.Title;
+end;
+
+procedure TfrmPrincipal.FormShow(Sender: TObject);
+begin
+  CriarForm(TfrmLogin, frmLogin,'Login');
+end;
+
+end.

@@ -1,0 +1,23 @@
+program TEx;
+
+uses
+  Vcl.Forms,
+  uPrincipal in 'uPrincipal.pas' {frmPrincipal},
+  uFormularios in 'uFormularios.pas',
+  uLogin in 'uLogin.pas' {frmLogin},
+  uDados in 'uDados.pas' {DM: TDataModule},
+  uCadastrarPessoas in 'uCadastrarPessoas.pas' {frmCadastrarPessoas},
+  uDadosFuncoes in 'uDadosFuncoes.pas',
+  uPesquisarPessoas in 'uPesquisarPessoas.pas' {frmPesquisarPessoas},
+  uAddEnd in 'uAddEnd.pas' {frmAddEnd},
+  uCarregaInfos in 'uCarregaInfos.pas';
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.CreateForm(TDM, DM);
+  Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.Run;
+end.

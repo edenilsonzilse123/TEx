@@ -1,0 +1,98 @@
+object DM: TDM
+  OldCreateOrder = False
+  Height = 343
+  Width = 524
+  object con1: TFDConnection
+    Params.Strings = (
+      'Database=tex'
+      'User_Name=root'
+      'Password=Koerich1*'
+      'Server=localhost'
+      'DriverID=MySQL')
+    Connected = True
+    LoginPrompt = False
+    Left = 208
+    Top = 48
+  end
+  object fdphysmysqldrvrlnk1: TFDPhysMySQLDriverLink
+    VendorLib = 'C:\Windows\System32\libmysql55.dll'
+    Left = 312
+    Top = 56
+  end
+  object fdgxwtcrsr1: TFDGUIxWaitCursor
+    Provider = 'Forms'
+    Left = 296
+    Top = 128
+  end
+  object qryLogin: TFDQuery
+    Connection = con1
+    Left = 128
+    Top = 208
+  end
+  object qryListarPessoas: TFDQuery
+    Connection = con1
+    SQL.Strings = (
+      'SELECT * FROM TB_PESSOAS')
+    Left = 72
+    Top = 120
+    object fdtncfldListarPessoasid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      Visible = False
+    end
+    object dtmfldListarPessoasdt_cadastro: TDateTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'dt_cadastro'
+      Origin = 'dt_cadastro'
+      Visible = False
+    end
+    object dtmfldListarPessoasdt_atualizacao: TDateTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'dt_atualizacao'
+      Origin = 'dt_atualizacao'
+      Visible = False
+    end
+    object cdsListarPessoasnome_pessoa: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Nome pessoa'
+      FieldName = 'nome_pessoa'
+      Origin = 'nome_pessoa'
+      Size = 45
+    end
+    object cdsListarPessoascep: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Cep'
+      FieldName = 'cep'
+      Origin = 'cep'
+      Size = 9
+    end
+    object cdsListarPessoasendereco: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Endere'#231'o'
+      FieldName = 'endereco'
+      Origin = 'endereco'
+      Size = 45
+    end
+    object cdsListarPessoascidade: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Cidade'
+      FieldName = 'cidade'
+      Origin = 'cidade'
+      Size = 45
+    end
+    object cdsListarPessoasestado: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'UF'
+      DisplayWidth = 2
+      FieldName = 'estado'
+      Origin = 'estado'
+      Size = 2
+    end
+  end
+  object dsListarPessoas: TDataSource
+    DataSet = qryListarPessoas
+    Left = 104
+    Top = 56
+  end
+end

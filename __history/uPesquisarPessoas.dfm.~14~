@@ -1,0 +1,73 @@
+object frmPesquisarPessoas: TfrmPesquisarPessoas
+  Left = 0
+  Top = 0
+  BorderStyle = bsSingle
+  Caption = 'frmPesquisarPessoas'
+  ClientHeight = 571
+  ClientWidth = 794
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  OldCreateOrder = False
+  Position = poDesktopCenter
+  OnClose = FormClose
+  PixelsPerInch = 96
+  TextHeight = 13
+  object dbgrdListarPessoas: TDBGrid
+    Left = 0
+    Top = 0
+    Width = 794
+    Height = 530
+    Align = alClient
+    TabOrder = 0
+    TitleFont.Charset = DEFAULT_CHARSET
+    TitleFont.Color = clWindowText
+    TitleFont.Height = -11
+    TitleFont.Name = 'Tahoma'
+    TitleFont.Style = []
+  end
+  object pnlBotoes: TPanel
+    Left = 0
+    Top = 530
+    Width = 794
+    Height = 41
+    Align = alBottom
+    TabOrder = 1
+  end
+  object qryPesquisa: TFDQuery
+    Active = True
+    Connection = DM.con1
+    SQL.Strings = (
+      'SELECT * FROM TB_PESSOAS')
+    Left = 376
+    Top = 312
+    object fdtncfldPesquisaid: TFDAutoIncField
+      FieldName = 'id'
+      Origin = 'id'
+      ProviderFlags = [pfInWhere, pfInKey]
+      Visible = False
+    end
+    object dtmfldPesquisadt_cadastro: TDateTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'dt_cadastro'
+      Origin = 'dt_cadastro'
+      Visible = False
+    end
+    object dtmfldPesquisadt_atualizacao: TDateTimeField
+      AutoGenerateValue = arDefault
+      FieldName = 'dt_atualizacao'
+      Origin = 'dt_atualizacao'
+      Visible = False
+    end
+    object cdsPesquisanome_pessoa: TStringField
+      AutoGenerateValue = arDefault
+      DisplayLabel = 'Nome da pessoa'
+      FieldName = 'nome_pessoa'
+      Origin = 'nome_pessoa'
+      Size = 45
+    end
+  end
+end

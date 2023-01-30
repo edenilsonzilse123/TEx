@@ -1,0 +1,44 @@
+unit uPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, System.ImageList, Vcl.ImgList,
+  Vcl.ExtCtrls, System.Actions, Vcl.ActnList;
+
+type
+  TfrmPrincipal = class(TForm)
+    pnlBotoes: TPanel;
+    ilPrin: TImageList;
+    actlstPrin: TActionList;
+    actCadPersons: TAction;
+    procedure FormActivate(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+implementation
+
+uses
+  uLogin, uFormularios;
+
+{$R *.dfm}
+
+procedure TfrmPrincipal.FormActivate(Sender: TObject);
+begin
+  Caption :=  Application.Title;
+end;
+
+procedure TfrmPrincipal.FormShow(Sender: TObject);
+begin
+  CriarForm(TfrmLogin, frmLogin,'Login');
+end;
+
+end.

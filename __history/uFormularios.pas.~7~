@@ -1,0 +1,90 @@
+unit uFormularios;
+
+interface
+
+uses
+  Vcl.Forms, System.Classes, System.SysUtils, IdHashSHA,
+  Winapi.Windows, Vcl.StdCtrls, Vcl.Graphics, Vcl.DBGrids, Vcl.Grids,
+  Vcl.ExtCtrls, System.Math, System.Win.Registry,Datasnap.DBClient,
+  Vcl.Dialogs;
+
+  procedure CriarForm(InstanceClass: TComponentClass; var Reference;
+                      pTitulo:String='';
+                      pMostrarForm:Boolean=True;
+                      pBorderStyle:TFormBorderStyle=TFormBorderStyle.bsSizeable;
+                      pModal:Boolean=True;
+                      pPosition:TPosition=poDesktopCenter;
+                      pBorderIcons:TBorderIcons=[TBorderIcon.biSystemMenu];
+                      pWindowState:TWindowState=TWindowState.wsNormal);
+
+  function  GetCriptogrado(pTexto:String):String;
+  function  Logado(pLogin,pSenha:String):Boolean;
+
+implementation
+
+uses
+  uDados;
+
+procedure CriarForm(InstanceClass: TComponentClass; var Reference;
+                    pTitulo:String='';
+                    pMostrarForm:Boolean=True;
+                    pBorderStyle:TFormBorderStyle=TFormBorderStyle.bsSizeable;
+                    pModal:Boolean=True;
+                    pPosition:TPosition=poDesktopCenter;
+                    pBorderIcons:TBorderIcons=[TBorderIcon.biSystemMenu];
+                    pWindowState:TWindowState=TWindowState.wsNormal);
+begin
+  Application.CreateForm(InstanceClass,Reference);
+  TForm(Reference).Caption      :=  Application.Title + ' | '  + pTitulo;
+  TForm(Reference).Position     :=  pPosition;
+  TForm(Reference).BorderIcons  :=  pBorderIcons;
+  TForm(Reference).WindowState  :=  pWindowState;
+  if pMostrarForm then
+  begin
+    if pModal then
+      TForm(Reference).ShowModal
+    else
+      TForm(Reference).Show;
+  end;
+end;
+
+function  GetCriptogrado(pTexto:String):String;
+var
+  SHA1:TIdHashSHA1;
+begin
+  SHA1  :=  TIdHashSHA1.Create;
+  try
+    Result  :=  SHA1.HashStringAsHex(AnsiUpperCase(pTexto));
+  finally
+    SHA1.Free;
+  end;
+end;
+
+function  Logado(pLogin,pSenha:String):Boolean;
+begin
+  try
+    with DM.qryLogin do
+    begin
+      if Active then
+        Close;
+      SQL.Clear;
+      SQL.Add('SELECT * FROM TB_USUARIOS WHERE USUARIO = ');
+      SQL.Add(':PUSUARIO AND SENHA = :PSENHA');
+      SQL.Add(' AND PODE_USAR = 1');
+      ParamByName('PUSUARIO').AsString  :=  pLogin;
+      ParamByName('PSENHA').AsString    :=  GetCriptogrado(pSenha);
+      Open; First; FetchAll;
+      Result  :=  (RecordCount >= 1);
+      if (not Result) then
+      begin
+        Application.MessageBox('Login ou senha incorretos!',
+          PChar(Application.Title), MB_OK + MB_ICONSTOP);
+        Abort;
+      end;
+    end;
+  except
+    ShowMessage('Não foi possivel conectar ao banco');
+  end;
+end;
+
+end.

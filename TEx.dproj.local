@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2023/01/26 23:22:06.000.340,=C:\Users\Edenilson\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/01/26 23:22:30.000.839,C:\Users\Edenilson\Documents\GitHub\TEx\uPrincipal.pas=C:\Users\Edenilson\Documents\Embarcadero\Studio\Projects\Unit1.pas</Transaction>
+    <Transaction>2023/01/26 23:22:30.000.839,C:\Users\Edenilson\Documents\GitHub\TEx\uPrincipal.dfm=C:\Users\Edenilson\Documents\Embarcadero\Studio\Projects\Unit1.dfm</Transaction>
+    <Transaction>2023/01/26 23:22:36.000.846,C:\Users\Edenilson\Documents\GitHub\TEx\TEx.dproj=C:\Users\Edenilson\Documents\Embarcadero\Studio\Projects\Project2.dproj</Transaction>
+    <Transaction>2023/01/26 23:35:35.000.242,=C:\Users\Edenilson\Documents\GitHub\TEx\uFormularios.pas</Transaction>
+    <Transaction>2023/01/26 23:35:35.000.522,=C:\Users\Edenilson\Documents\GitHub\TEx\uLogin.pas</Transaction>
+    <Transaction>2023/01/26 23:38:10.000.713,=C:\Users\Edenilson\Documents\GitHub\TEx\Unit1.pas</Transaction>
+    <Transaction>2023/01/26 23:38:29.000.483,C:\Users\Edenilson\Documents\GitHub\TEx\Unit1.pas=C:\Users\Edenilson\Documents\GitHub\TEx\uDados.pas</Transaction>
+    <Transaction>2023/01/26 23:38:29.000.483,C:\Users\Edenilson\Documents\GitHub\TEx\Unit1.dfm=C:\Users\Edenilson\Documents\GitHub\TEx\uDados.dfm</Transaction>
+    <Transaction>2023/01/27 02:42:34.000.814,=C:\Users\Edenilson\Documents\GitHub\TEx\Unit1.pas</Transaction>
+    <Transaction>2023/01/27 02:42:54.000.355,C:\Users\Edenilson\Documents\GitHub\TEx\uCadastrarPessoas.pas=C:\Users\Edenilson\Documents\GitHub\TEx\Unit1.pas</Transaction>
+    <Transaction>2023/01/27 02:42:54.000.355,C:\Users\Edenilson\Documents\GitHub\TEx\uCadastrarPessoas.dfm=C:\Users\Edenilson\Documents\GitHub\TEx\Unit1.dfm</Transaction>
+    <Transaction>2023/01/27 02:51:39.000.102,=C:\Users\Edenilson\Documents\GitHub\TEx\uDadosFuncoes.pas</Transaction>
+    <Transaction>2023/01/30 10:25:22.000.173,=C:\Users\Edenilson\Documents\GitHub\TEx\Unit1.pas</Transaction>
+    <Transaction>2023/01/30 10:25:40.000.945,C:\Users\Edenilson\Documents\GitHub\TEx\Unit1.pas=C:\Users\Edenilson\Documents\GitHub\TEx\uPesquisarPessoas.pas</Transaction>
+    <Transaction>2023/01/30 10:25:40.000.945,C:\Users\Edenilson\Documents\GitHub\TEx\Unit1.dfm=C:\Users\Edenilson\Documents\GitHub\TEx\uPesquisarPessoas.dfm</Transaction>
+    <Transaction>2023/01/30 13:54:23.000.467,=C:\Users\Edenilson\Documents\GitHub\TEx\Unit1.pas</Transaction>
+    <Transaction>2023/01/30 13:55:29.000.358,C:\Users\Edenilson\Documents\GitHub\TEx\Unit1.pas=C:\Users\Edenilson\Documents\GitHub\TEx\uAddEnd.pas</Transaction>
+    <Transaction>2023/01/30 13:55:29.000.359,C:\Users\Edenilson\Documents\GitHub\TEx\Unit1.dfm=C:\Users\Edenilson\Documents\GitHub\TEx\uAddEnd.dfm</Transaction>
+    <Transaction>2023/01/30 14:09:46.000.659,=C:\Users\Edenilson\Documents\GitHub\TEx\Unit1.pas</Transaction>
+    <Transaction>2023/01/30 14:10:07.000.756,C:\Users\Edenilson\Documents\GitHub\TEx\Unit1.pas=C:\Users\Edenilson\Documents\GitHub\TEx\uCarregaInfos.pas</Transaction>
+  </Transactions>
+</BorlandProject>
