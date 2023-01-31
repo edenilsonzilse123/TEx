@@ -20,6 +20,7 @@ type
     procedure btnBuscarClick(Sender: TObject);
     procedure btnAdicionarClick(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure CarregarEndereco;
   private
     { Private declarations }
   public
@@ -61,6 +62,14 @@ begin
     lbledtCidade.Text :=  acbrcp1.Enderecos[x].Municipio;
     lbledtUF.Text     :=  acbrcp1.Enderecos[x].UF;
   end;
+end;
+
+procedure TfrmAddEnd.CarregarEndereco;
+begin
+  lbledtCep.Text    :=  GetCep;
+  lbledtLograd.Text :=  GetLograd;
+  lbledtCidade.Text :=  GetCidade;
+  lbledtUF.Text     :=  GetUF;
 end;
 
 procedure TfrmAddEnd.FormClose(Sender: TObject; var Action: TCloseAction);

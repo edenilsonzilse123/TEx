@@ -51,6 +51,7 @@ type
     btnSalvar: TBitBtn;
     btnCancel: TBitBtn;
     btnExcluir: TBitBtn;
+    cdsEnderecosId: TIntegerField;
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
     procedure CarregarEnderecos;
     procedure btnAdicEnderecoClick(Sender: TObject);
@@ -59,6 +60,8 @@ type
     procedure actSaveExecute(Sender: TObject);
     procedure actCancelExecute(Sender: TObject);
     procedure actDeleteExecute(Sender: TObject);
+    procedure AddEndereco(pEditar:Boolean;vPessoa,vID:Integer);
+    procedure dbgrdListaEnderecosDblClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -67,7 +70,8 @@ type
 
 var
   frmCadastrarPessoas: TfrmCadastrarPessoas;
-  vCodPessoa:Integer;
+  vCodPessoa, vIdEndereco:Integer;
+  vMarcaBook:TBookmark;
 
 const
   cSqlBuscaEnderecos:String=' SELECT * FROM TB_ENDERECOS WHERE 1=1 ';
@@ -90,7 +94,8 @@ begin
   if Application.MessageBox('Deseja mesmo incluir este registro?', PChar(Application.Title),
     MB_YESNO + MB_ICONQUESTION) = IDYES then
     ExcluirDados('TB_ENDERECOS',' AND ID = '      +
-                 cdsEnderecosIdCliente.AsString);
+                 cdsEnderecosId.AsString);
+  CarregarEnderecos;
 end;
 
 procedure TfrmCadastrarPessoas.actNovoExecute(Sender: TObject);
@@ -118,60 +123,74 @@ begin
     vValores  :=  vValores  + 'NOME_PESSOA = '  + StringSql(lbledtNomePessoa.Text);
     AtualizaDados('TB_PESSOAS',vValores,' AND ID = '  + IntToStr(vCodPessoa),False);
   end;
-  vCampos     :=  EmptyStr;
-  vValores    :=  EmptyStr;
   cdsEnderecos.First;
   if cdsEnderecos.RecordCount >= 1 then
   begin
-    if (cdsEnderecosIdCliente.AsInteger = 0) then
+    while not cdsEnderecos.Eof do
     begin
-      vCampos   :=  vCampos   + 'ID_CLIENTE,CEP,ENDERECO,CIDADE,UF';
-      vValores  :=  vValores  + IntToStr(vCodPessoa)                      + ',';
-      vValores  :=  vValores  + StringSql(cdsEnderecosCep2.AsString)      + ',';
-      vValores  :=  vValores  + StringSql(cdsEnderecosEndereco2.AsString) + ',';
-      vValores  :=  vValores  + StringSql(cdsEnderecosCidade2.AsString)   + ',';
-      vValores  :=  vValores  + StringSql(cdsEnderecosUF2.AsString)            ;
-      InsereDados('TB_ENDERECOS',vCampos,vValores,False);
-    end
-    else
-    begin
-      vValores  :=  vValores  + 'ID_CLIENTE = '               +
-                    StringSql(cdsEnderecosIdCliente.AsString) + ',' ;
-      vValores  :=  vValores  + 'CEP = '                      +
-                    StringSql(cdsEnderecosCep2.AsString)      + ',' ;
-      vValores  :=  vValores  + 'ENDERECO = '                 +
-                    StringSql(cdsEnderecosEndereco2.AsString) + ',' ;
-      vValores  :=  vValores  + 'CIDADE = '                   +
-                    StringSql(cdsEnderecosCidade2.AsString)   + ',' ;
-      vValores  :=  vValores  + 'UF = '                       +
-                    StringSql(cdsEnderecosUF2.AsString)             ;
-      AtualizaDados('TB_ENDERECOS',vValores,' AND ID = '      +
-                    cdsEnderecosIdCliente.AsString,False);
+      vCampos     :=  EmptyStr;
+      vValores    :=  EmptyStr;
+      if (cdsEnderecosId.AsInteger = 0) then
+      begin
+        vCampos   :=  vCampos   + 'ID_CLIENTE,CEP,ENDERECO,CIDADE,UF';
+        vValores  :=  vValores  + IntToStr(vCodPessoa)                      + ',';
+        vValores  :=  vValores  + StringSql(cdsEnderecosCep2.AsString)      + ',';
+        vValores  :=  vValores  + StringSql(cdsEnderecosEndereco2.AsString) + ',';
+        vValores  :=  vValores  + StringSql(cdsEnderecosCidade2.AsString)   + ',';
+        vValores  :=  vValores  + StringSql(cdsEnderecosUF2.AsString)            ;
+        InsereDados('TB_ENDERECOS',vCampos,vValores,False);
+      end
+      else
+      begin
+        vValores  :=  vValores  + 'ID_CLIENTE = '               +
+                      StringSql(cdsEnderecosIdCliente.AsString) + ',' ;
+        vValores  :=  vValores  + 'CEP = '                      +
+                      StringSql(cdsEnderecosCep2.AsString)      + ',' ;
+        vValores  :=  vValores  + 'ENDERECO = '                 +
+                      StringSql(cdsEnderecosEndereco2.AsString) + ',' ;
+        vValores  :=  vValores  + 'CIDADE = '                   +
+                      StringSql(cdsEnderecosCidade2.AsString)   + ',' ;
+        vValores  :=  vValores  + 'UF = '                       +
+                      StringSql(cdsEnderecosUF2.AsString)             ;
+        AtualizaDados('TB_ENDERECOS',vValores,' AND ID = '      +
+                      cdsEnderecosId.AsString,False);
+      end;
+      cdsEnderecos.Next;
     end;
   end;
   CarregarEnderecos;
   MensagensSistema('Cadastros inseridos/atualizados com sucesso!');
 end;
 
-procedure TfrmCadastrarPessoas.btnAdicEnderecoClick(Sender: TObject);
+procedure TfrmCadastrarPessoas.AddEndereco(pEditar: Boolean; vPessoa,
+  vID: Integer);
 begin
-  CriarForm(TfrmAddEnd, frmAddEnd,'Cadastrar endereços');
-  CriarDataSetClient(cdsEnderecos);
   with cdsEnderecos do
   begin
-    Append;
-    cdsEnderecosIdCliente.AsInteger :=  vCodPessoa;
+    if (not pEditar) then
+      Append
+    else
+      Edit;
+    cdsEnderecosIdCliente.AsInteger :=  vPessoa;
     cdsEnderecosCep2.AsString       :=  GetCep;
     cdsEnderecosEndereco2.AsString  :=  GetLograd;
     cdsEnderecosCidade2.AsString    :=  GetCidade;
     cdsEnderecosUF2.AsString        :=  GetUF;
+    cdsEnderecosId.AsInteger        :=  vID;
     Post;
   end;
 end;
 
+procedure TfrmCadastrarPessoas.btnAdicEnderecoClick(Sender: TObject);
+begin
+  CriarForm(TfrmAddEnd, frmAddEnd,'Cadastrar endereços');
+  if (not (cdsEnderecos.Active)) then
+    CriarDataSetClient(cdsEnderecos);
+  AddEndereco(False,vCodPessoa,0);
+end;
+
 procedure TfrmCadastrarPessoas.CarregarEnderecos;
 begin
-  CriarDataSetClient(cdsEnderecos);
   with qryEnderecos do
   begin
     if Active then
@@ -179,6 +198,7 @@ begin
     SQL.Clear;
     SQL.Add(cSqlBuscaEnderecos  + ' AND ID_CLIENTE = '  + IntToStr(vCodPessoa));
     Open; First; FetchAll;
+    CriarDataSetClient(cdsEnderecos);
     while not Eof do
     begin
       cdsEnderecos.Append;
@@ -187,6 +207,7 @@ begin
       cdsEnderecosEndereco2.AsString  :=  FieldByName('endereco').AsString;;
       cdsEnderecosCidade2.AsString    :=  FieldByName('cidade').AsString;;
       cdsEnderecosUF2.AsString        :=  FieldByName('uf').AsString;;
+      cdsEnderecosId.AsInteger        :=  FieldByName('id').AsInteger;
       cdsEnderecos.Post;
       Next;
     end;
@@ -206,6 +227,27 @@ begin
     vCodPessoa            :=  FieldByName('ID').AsInteger;
     CarregarEnderecos;
   end;
+end;
+
+procedure TfrmCadastrarPessoas.dbgrdListaEnderecosDblClick(Sender: TObject);
+begin
+  CriarForm(TfrmAddEnd, frmAddEnd,'Cadastrar endereços',False);
+  vIdEndereco :=  cdsEnderecosId.AsInteger;
+  vMarcaBook  :=  cdsEnderecos.GetBookmark;
+  SetarCep(cdsEnderecosCep2.AsString);
+  SetarLogradouro(cdsEnderecosEndereco2.AsString);
+  SetarCidade(cdsEnderecosCidade2.AsString);
+  SetarUF(cdsEnderecosUF2.AsString);
+  frmAddEnd.CarregarEndereco;
+  frmAddEnd.ShowModal;
+  cdsEnderecos.First;
+  while not cdsEnderecos.Eof do
+  begin
+    if (cdsEnderecosId.AsInteger = vIdEndereco) then
+      AddEndereco(True,vCodPessoa,vIdEndereco);
+    cdsEnderecos.Next;
+  end;
+  cdsEnderecos.GotoBookmark(vMarcaBook);
 end;
 
 procedure TfrmCadastrarPessoas.FormClose(Sender: TObject;

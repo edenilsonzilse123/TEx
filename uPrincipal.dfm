@@ -44,7 +44,6 @@ object frmPrincipal: TfrmPrincipal
       Align = alLeft
       Caption = 'Pesquisar pessoas'
       TabOrder = 1
-      ExplicitLeft = 305
     end
   end
   object ilPrin: TImageList

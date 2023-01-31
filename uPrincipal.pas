@@ -57,7 +57,7 @@ end;
 
 procedure TfrmPrincipal.FormShow(Sender: TObject);
 begin
-//  CriarForm(TfrmLogin, frmLogin,'Login');
+  CriarForm(TfrmLogin, frmLogin,'Login');
 end;
 
 end.

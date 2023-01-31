@@ -51,7 +51,6 @@ object frmCadastrarPessoas: TfrmCadastrarPessoas
       Height = 487
       Align = alRight
       TabOrder = 0
-      ExplicitLeft = 679
       object btnNovo: TBitBtn
         Left = 1
         Top = 1
@@ -71,8 +70,6 @@ object frmCadastrarPessoas: TfrmCadastrarPessoas
         Align = alTop
         Caption = 'Salvar'
         TabOrder = 1
-        ExplicitLeft = -15
-        ExplicitTop = 121
       end
       object btnCancel: TBitBtn
         Left = 1
@@ -83,8 +80,6 @@ object frmCadastrarPessoas: TfrmCadastrarPessoas
         Align = alTop
         Caption = 'Cancelar'
         TabOrder = 2
-        ExplicitLeft = -15
-        ExplicitTop = 193
       end
       object btnExcluir: TBitBtn
         Left = 1
@@ -95,7 +90,6 @@ object frmCadastrarPessoas: TfrmCadastrarPessoas
         Align = alTop
         Caption = 'Excluir'
         TabOrder = 3
-        ExplicitTop = 233
       end
     end
     object dbgrdListaEnderecos: TDBGrid
@@ -105,12 +99,14 @@ object frmCadastrarPessoas: TfrmCadastrarPessoas
       Height = 487
       Align = alClient
       DataSource = dsEnderecos
+      Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgTabs, dgConfirmDelete, dgCancelOnExit, dgTitleClick, dgTitleHotTrack]
       TabOrder = 1
       TitleFont.Charset = DEFAULT_CHARSET
       TitleFont.Color = clWindowText
       TitleFont.Height = -11
       TitleFont.Name = 'Tahoma'
       TitleFont.Style = []
+      OnDblClick = dbgrdListaEnderecosDblClick
     end
   end
   object qryEnderecos: TFDQuery
@@ -204,6 +200,10 @@ object frmCadastrarPessoas: TfrmCadastrarPessoas
       FieldName = 'UF'
       Size = 2
     end
+    object cdsEnderecosId: TIntegerField
+      FieldName = 'Id'
+      Visible = False
+    end
   end
   object qryPessoa: TFDQuery
     Connection = DM.con1
@@ -238,7 +238,7 @@ object frmCadastrarPessoas: TfrmCadastrarPessoas
     Left = 544
     Top = 24
     Bitmap = {
-      494C010104000800040010001000FFFFFFFFFF00FFFFFFFFFFFFFFFF424D3600
+      494C010104000800040010001000FFFFFFFFFF10FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000400000002000000001002000000000000020
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000
@@ -506,7 +506,8 @@ object frmCadastrarPessoas: TfrmCadastrarPessoas
       0000C0038FC3F00F8000C0038783F3CF8003C003C207F00FE013C003E00FF00F
       F87FC003F00FF42FF87FC003F01FF42FF87FC003E01FF42FF07FC003E00FF42F
       F03FC003C007F5AFF03FC0038183E007F03FC00383C3E007F03FC0078FE1FC3F
-      F07FFFFFFFF8FFFFFCFFFFFFFFFFFFFF}
+      F07FFFFFFFF8FFFFFCFFFFFFFFFFFFFF00000000000000000000000000000000
+      000000000000}
   end
   object actlstCadPess: TActionList
     Images = ilCadPess

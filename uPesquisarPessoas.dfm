@@ -51,6 +51,7 @@ object frmPesquisarPessoas: TfrmPesquisarPessoas
       FieldName = 'id'
       Origin = 'id'
       ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = True
       Visible = False
     end
     object dtmfldPesquisadt_cadastro: TDateTimeField
